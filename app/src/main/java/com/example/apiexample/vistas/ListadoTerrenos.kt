@@ -1,4 +1,4 @@
-package com.example.apiexample.presentation
+package com.example.apiexample.vistas
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -6,8 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
-import com.example.apiexample.R
-import com.example.apiexample.databinding.ActivityMainBinding
+import com.example.apiexample.data.remote.Terreno
 import com.example.apiexample.databinding.FragmentListadoTerrenosBinding
 
 class ListadoTerrenos : Fragment() {
@@ -25,7 +24,19 @@ class ListadoTerrenos : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentListadoTerrenosBinding.inflate(layoutInflater, container, false)
+        initAdapter()
+        binding.buttonCargar.setOnClickListener {
+            terrenoVM.getAllTerrenos()
+        }
         return binding.root
+    }
+
+    private fun initAdapter() {
+        val adapter = AdapterTerreno()
+        binding.recyclerTerreno.adapter = adapter
+        terrenoVM.terrenosLiveData.observe(viewLifecycleOwner) {
+            adapter.setData(it)
+        }
     }
 
 }
