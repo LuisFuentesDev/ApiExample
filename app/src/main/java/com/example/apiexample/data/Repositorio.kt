@@ -13,10 +13,12 @@ class Repositorio(private val terrenoAPI: TerrenoAPI, private val terrenoDao: Te
         val respuesta = terrenoAPI.getData()
         if (respuesta.isSuccessful) {
             val resp = respuesta.body()
-            resp?.let {
-
+            resp?.let { terrenos ->
+                val terrenosEntity = terrenos.map { it.transformar() }
+                terrenoDao.insertarTerrenos(terrenosEntity)
             }
         }
-
     }
 }
+
+fun Terreno.transformar(): TerrenoEntity = TerrenoEntity(this.id, this.precio, this.tipo, this.img)
