@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import coil.load
 import com.example.apiexample.databinding.FragmentDetalleBinding
 
@@ -23,13 +24,13 @@ private const val ARG_PARAM4 = "img"
  */
 class DetalleFragment : Fragment() {
     lateinit var binding: FragmentDetalleBinding
+    private val terrenoVM: TerrenoVM by activityViewModels()
 
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
     private var param3: Int? = null
     private var param4: String? = null
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,11 +49,12 @@ class DetalleFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentDetalleBinding.inflate(layoutInflater, container, false)
-        binding.tvId.text = param1
-        binding.tvTipo.text = param2
-        binding.tvPrecio.text = param3.toString()
-        binding.imgDetalle.load(param4)
-
+        terrenoVM.terrenoLiveData(param1.toString()).observe(viewLifecycleOwner) {
+            binding.tvId.text = param1
+            binding.tvTipo.text = param2
+            binding.tvPrecio.text = param3.toString()
+            binding.imgDetalle.load(param4)
+        }
 
         return binding.root
     }
