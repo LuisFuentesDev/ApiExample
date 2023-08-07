@@ -46,9 +46,11 @@ class AdapterTerreno : RecyclerView.Adapter<AdapterTerreno.ItemTerrenoViewHolder
                 bundle.putString("id", terreno.id)
                 bundle.putString("tipo", terreno.tipo)
                 bundle.putInt("precio", terreno.precio)
+                bundle.putString("img", terreno.img)
 
                 Navigation.findNavController(v.root)
                     .navigate(R.id.action_listadoTerrenos_to_detalleFragment, bundle)
+
             }
 
         }

@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import coil.load
 import com.example.apiexample.databinding.FragmentDetalleBinding
 
 // TODO: Rename parameter arguments, choose names that match
@@ -12,6 +13,7 @@ import com.example.apiexample.databinding.FragmentDetalleBinding
 private const val ARG_PARAM1 = "id"
 private const val ARG_PARAM2 = "tipo"
 private const val ARG_PARAM3 = "precio"
+private const val ARG_PARAM4 = "img"
 
 
 /**
@@ -26,6 +28,8 @@ class DetalleFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
     private var param3: Int? = null
+    private var param4: String? = null
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,6 +38,7 @@ class DetalleFragment : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
             param3 = it.getInt(ARG_PARAM3)
+            param4 = it.getString(ARG_PARAM4)
 
         }
     }
@@ -46,6 +51,9 @@ class DetalleFragment : Fragment() {
         binding.tvId.text = param1
         binding.tvTipo.text = param2
         binding.tvPrecio.text = param3.toString()
+        binding.imgDetalle.load(param4)
+
+
         return binding.root
     }
 
