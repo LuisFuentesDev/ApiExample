@@ -6,7 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.Navigation
 import coil.load
+import com.example.apiexample.R
 import com.example.apiexample.databinding.FragmentDetalleBinding
 
 // TODO: Rename parameter arguments, choose names that match
@@ -50,12 +52,15 @@ class DetalleFragment : Fragment() {
     ): View? {
         binding = FragmentDetalleBinding.inflate(layoutInflater, container, false)
         terrenoVM.terrenoLiveData(param1.toString()).observe(viewLifecycleOwner) {
-            binding.tvId.text = param1
-            binding.tvTipo.text = param2
-            binding.tvPrecio.text = param3.toString()
-            binding.imgDetalle.load(param4)
+            binding.tvId.text = it.id
+            binding.tvTipo.text = it.tipo
+            binding.tvPrecio.text = it.precio.toString()
+            binding.imgDetalle.load(it.img)
         }
-
+        binding.buttonVolver.setOnClickListener{
+        Navigation.findNavController(binding.root)
+            .navigate(R.id.action_detalleFragment_to_listadoTerrenos)
+        }
         return binding.root
     }
 
